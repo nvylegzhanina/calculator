@@ -14,12 +14,18 @@ public class Program {
         this.calculator = calculator;
         this.parser = parser;
     }
-    public void start(){
+    public void start() throws NotImplementedException {
         userMessagesWorker.sendMessageToUser("Введите первое число");
         double firstNumber = userMessagesWorker.getDoubleFromUser();
         userMessagesWorker.sendMessageToUser("Введите операцию");
         String op = userMessagesWorker.getStringFromUser();
-        Operations operation = parser.parseUserResponse(op);
+        Operations operation;
+        try {
+            operation = parser.parseUserResponse(op);
+        }
+        catch (IllegalArgumentException e){
+            throw new IllegalArgumentException("Введенный знак операции не поддерживается");
+        }
         userMessagesWorker.sendMessageToUser("Введите второе число");
         double secondNumber = userMessagesWorker.getDoubleFromUser();
 
@@ -29,8 +35,18 @@ public class Program {
             case Plus: result = calculator.sum(firstNumber, secondNumber); break;
             case Minus: result = calculator.minus(firstNumber, secondNumber);  break;
             case Multiply: result = calculator.multiply(firstNumber, secondNumber); break;
-            case Divide: result = calculator.divide(firstNumber, secondNumber); break;
-            default: throw new NotImplementedException();
+            case Divide: {
+                try {
+                    result = calculator.divide(firstNumber, secondNumber);
+                }
+                catch (ArithmeticException e) {
+                    System.out.println("На ноль делить нельзя");
+                    return;
+                }
+                break;
+            }
+            default:
+                throw new IllegalStateException("Unexpected value: " + operation);
         }
 
         userMessagesWorker.sendMessageToUser("Результат: " + result);
