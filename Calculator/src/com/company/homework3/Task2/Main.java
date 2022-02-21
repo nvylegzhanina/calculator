@@ -1,16 +1,16 @@
 package com.company.homework3.Task2;
 
+
 import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-       ArrayList<Sweet> sweeties = new ArrayList<Sweet>();
-       sweeties.add(new Sweet(SweetType.Candy, "Конфета 2222", 2.2, 1));
-       sweeties.add(new Sweet(SweetType.Marmalade, "Мармелад 3000", 8.8, 8));
-       sweeties.add(new Sweet(SweetType.Cheese, "Сыр 1", 5, 13.3));
-       sweeties.add(new Sweet(SweetType.Jellybean, "Jellybean 2222", 1, 3));
+        ArrayList<Sweet> sweeties = new ArrayList<Sweet>();
+        sweeties.add(new Chocolate(2.2, 1, "Шоколад 2222", 322));
+        sweeties.add(new JellyBeans(8.8, 8, "Мармелад 3000", "nestle"));
+        sweeties.add(new Candy(5, 13.3, "Конфета 1", "Russia"));
 
-       Gift gift = new Gift(sweeties);
+        Gift gift = new Gift(sweeties);
 
         System.out.println("Цена подарка:" + gift.getPrice());
         System.out.println("Вес подарка:" + gift.getWeight());
@@ -53,42 +53,42 @@ public class Main {
         }
     }
 
-    public static class Sweet {
-        private SweetType type;
-        private double weight;
-        private double price;
-        private String name;
+    public static abstract class Sweet {
+        double weight;
+        double price;
+        String name;
+    }
 
-        public Sweet(SweetType type, String name, double weight, double price){
+    public static class JellyBeans extends Sweet {
+        private final String tradeMark;
 
-            this.type = type;
+        public JellyBeans(double weight, double price, String name, String tradeMark){
             this.name = name;
             this.weight = weight;
             this.price = price;
-        }
-        public SweetType getType() {
-            return type;
-        }
-
-        public double getWeight() {
-            return weight;
-        }
-
-        public double getPrice() {
-            return price;
-        }
-
-        public String getName() {
-            return name;
+            this.tradeMark = tradeMark;
         }
     }
 
-    public enum SweetType{
-        Candy,
-        Jellybean,
-        Marmalade,
-        Cheese
+    public static class Candy extends Sweet {
+        private final String producerCountry;
+
+        public Candy(double weight, double price, String name, String producerCountry){
+            this.name = name;
+            this.weight = weight;
+            this.price = price;
+            this.producerCountry = producerCountry;
+        }
+    }
+
+    public static class Chocolate extends Sweet {
+        private final int calories;
+
+        public Chocolate(double weight, double price, String name, int calories){
+            this.name = name;
+            this.weight = weight;
+            this.price = price;
+            this.calories = calories;
+        }
     }
 }
-
-
