@@ -3,9 +3,12 @@ package com.company.homework3.Task1;
 import java.util.Random;
 
 public class Main {
+
     public static void main(String[] args) {
         Random random = new Random();
         int[] arr = new Random().ints(20, -10, 10).toArray();
+
+        ArrToConsole("Начальный массив", arr);
 
         int maxMinusNumber = 100;
         int minPlusNumber = 100;
@@ -32,5 +35,14 @@ public class Main {
 
         arr[minNumberPlusIndex] = maxMinusNumber;
         arr[maxNumberMinusIndex] = minPlusNumber;
+
+        ArrToConsole("Результирующий массив", arr);
+    }
+
+    public static void ArrToConsole(String startMessage, int[] arr){
+        System.out.println(startMessage);
+        for (int i = 0; i < arr.length; i++){
+            System.out.print(arr[i] + " ");
+        }
     }
 }
