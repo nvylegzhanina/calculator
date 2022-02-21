@@ -8,10 +8,9 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class Main {
-
     public static void main(String[] args) throws IOException {
         String str = readFile("D:\\text.txt", StandardCharsets.UTF_8);
-        String strArr[] = str.split(",");
+        String[] strArr = str.split(" ");
         List<String> al;
         al = Arrays.asList(strArr);
         Collections.sort(al);
@@ -21,6 +20,9 @@ public class Main {
         for(int i = 0; i < al.size(); i++){
             if (map.containsKey(al.get(i))) {
                 map.put(al.get(i), map.get(al.get(i)) + 1);
+            }
+            else {
+                map.put(al.get(i), 1);
             }
         }
 
